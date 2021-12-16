@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&family=Source+Serif+Pro:wght@300;400&display=swap');
+
+:root {
+    font-family: 'Source Serif Pro', serif;
+    font-weight: 300;
+
+    --font-size-ratio: 1.2;
+    --medium: 16px;
+    --small: calc(var(--medium) / var(--font-size-ratio));
+    --smaller: calc(var(--small) / var(--font-size-ratio));
+    --x-small: calc(var(--smaller) / var(--font-size-ratio));
+    --xx-small: calc(var(--x-small) / var(--font-size-ratio));
+    --large: calc(var(--medium) * var(--font-size-ratio));
+    --larger: calc(var(--large) * var(--font-size-ratio));
+    --x-large: calc(var(--larger) * var(--font-size-ratio));
+    --xx-large: calc(var(--x-large) * var(--font-size-ratio));
+    --xxx-large: calc(var(--xx-large) * var(--font-size-ratio));
+    font-size: var(--medium);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+}
+
+th {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+th { font-weight: 400; }
+
+.url {
+    font-family: inherit;
+}
+
+
+@media print {
+    :root {
+        --medium: 11pt;
+
+        --small-sep: 0.375em;
+        --med-sep:   calc(2*var(--small-sep));
+        --big-sep:   calc(4*var(--small-sep));
+        --top-margin: 2cm;
+        --right-margin: 2.5cm;
+        --bottom-margin: 2cm;
+        --left-margin: 2.5cm;
+        --sender-address-bottom: 4.3cm;
+        /* --recipient-address-top: 5.5cm; */
+        --recipient-address-top: 5cm;
+        /* --recipient-address-bottom: 8cm; */
+        --recipient-address-bottom: 9cm;
+        --header-bottom: 10cm;
+        --signature-whitespace: 1.5cm;
+        --folding-mark-size: 1pt;
+    }
+    /* Activate this rule for debugging. It shows borders around all elements. */
+    /* * {
+        border: 1px solid gray;
+    } */
+    html {
+        padding: 0;
+        margin: 0;
+    }
+    body {
+        margin: 0;
+        padding-top: var(--top-margin);
+        padding-right: var(--right-margin);
+        padding-bottom: var(--bottom-margin);
+        padding-left: var(--left-margin);
+    }
+    header, main, footer { margin: 0; }
+    header { margin-bottom: var(--big-sep); }
+    main { margin: var(--big-sep) 0; }
+    footer { margin-top: var(--big-sep); }
+
+    body::before, body::after {
+        /* Folding marks for Envelope size "DIN lang (DL)" */
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+        content: '';
+        top: 10.5cm;
+        bottom: calc(100vh - 2*10.5cm);
+        border-top: var(--folding-mark-size) solid black;
+        border-bottom: var(--folding-mark-size) solid black;
+        width: var(--folding-mark-size);
+    }
+    body::before { left: 3mm; }
+    body::after { right: 3mm; }
+
+    header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: calc(var(--sender-address-bottom) - var(--top-margin))
+                            calc(var(--header-bottom) - var(--recipient-address-top));
+        grid-template-areas: 'sender    .'
+                             'recipient loc-and-date';
+        grid-row-gap: calc(var(--recipient-address-top) - var(--sender-address-bottom));
+    }
+
+    header>address#sender {
+        grid-area: sender;
+        font-size: var(--small);
+    }
+    header>address#recipient {
+        grid-area: recipient;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    header>#location-and-date {
+        margin: 0;
+        padding: 0;
+        grid-area: loc-and-date;
+        align-self: flex-end;
+        text-align: right;
+    }
+
+    a, a:hover, a:focus, a:active, a:visited {
+        text-decoration: none;
+        color: inherit;
+        outline: none;
+    }
+
+    address {
+        font: inherit;
+    }
+    address table {
+        display: block;
+        margin: 0;
+        padding: 0;
+        border-collapse: collapse;
+    }
+    address td, address th {
+        margin: 0;
+        padding: 0;
+        font: inherit;
+    }
+    address td:not(:last-child),
+    address th:not(:last-child) {
+        padding-right: var(--small-sep);
+    }
+
+    p, ul, ol {
+        padding: 0;
+        margin: var(--small-sep) 0;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+    ul>li::before {
+        display: inline-block;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 300;
+        content: '—';  /* em-dash */
+        margin-left: -1em;
+        margin-right: var(--small-sep);
+    }
+
+    ul.short-items {
+        display: contents;
+        list-style: none;
+    }
+    ul.short-items>li {
+        display: inline;
+    }
+    ul.short-items>li::before {
+        display: none;
+    }
+    ul.short-items>li:not(:last-child)::after {
+        display: inline;
+        content: ", ";
+    }
+
+    #subject {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 400;
+        margin-bottom: var(--big-sep);
+    }
+
+    #salutation {
+        margin-bottom: var(--med-sep);
+    }
+
+    #ending {
+        margin-top: var(--med-sep);
+    }
+
+    #valediction {
+        margin-top: var(--big-sep);
+        padding-bottom: var(--signature-whitespace);
+    }
+
+    footer .enclosures h1 {
+        display: inline;
+        font: inherit;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 400;
+    }
+    footer .enclosures h1::after {
+        display: inline;
+        content: ': ';
+        font: inherit;
+    }
+}

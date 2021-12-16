@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Max Mustermann">
+    <title>&lt;Some title&gt;</title>
+    <link rel="stylesheet" type="text/css" href="css/letter.css">
+    <!-- The js automatically fills out dates -->
+    <script src="js/main.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      window.onload = init;
+    </script>
+  </head>
+  <body>
+    <header>
+      <address id="sender">
+        <table>
+          <tbody>
+            <tr><td colspan="2">Max Mustermann</td></tr>
+            <tr><td colspan="2">Bahnhofstraße 42<td></tr>
+            <tr><td colspan="2">01234 Musterhausen</td></tr>
+            <tr>
+                <td>Tel.:</td>
+                <td>
+                    <span class="area-code">0123</span>
+                    <span class="main-number">4567890</span>
+                </td>
+            </tr>
+            <tr>
+              <td>E-Mail:</td>
+              <td>
+                <a class="url" href="mailto:max-mustermann@some-domain.de">
+                  max&shy;mustermann@some&shy;domain.de
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </address>
+      <address id="recipient">
+        <table>
+          <tbody>
+            <tr><td colspan="2">Google-Hauptsitz</td></tr>
+            <tr><td colspan="2">Gordon House, Barrow Street</td></tr>
+            <tr><td colspan="2">Dublin 4</td></tr>
+            <tr><td colspan="2">Ireland</td></tr>
+          </tbody>
+        </table>
+      </address>
+      <p id="location-and-date">
+        <span id="letter-location">Berlin</span>,
+        <!-- Leave the time element as-is. It will be filled out through JS -->
+        <time id="letter-date" class="today"></time>
+      </p>
+    </header>
+    <main>
+      <p id="subject">
+        Bewerbung um eine Praktikumsstelle als Back-End&nbsp;Software&nbsp;Developer
+      </p>
+      <p id="salutation">Sehr geehrte Damen und Herren,</p>
+      <!-- Put as many message paragraphs here as you need -->
+      <p class="message">
+        ich bin Informatikstudent im siebten Fachsemester und möchte mich gern für ein Praktikum als
+        Back-End&nbsp;Software&nbsp;Developer bei Ihnen bewerben. Dieses muss nach der geltenden
+        Studienordnung mindestens acht Wochen in Vollzeit umfassen. Bevorzugen würde ich dafür den
+        Zeitraum vom <time>05.04.</time> bis zum <time>25.06.2022</time>.
+      </p>
+      <p class="message">&hellip;</p>
+      <p id="ending">
+        Ich würde mich freuen, bei Ihnen erste Berufserfahrungen sammeln und viele neue Technologien
+        und Fähigkeiten erlernen zu können.
+      </p>
+      <p id="valediction">Freundliche Grüße</p>
+    </main>
+    <footer>
+      <div class="enclosures">
+        <h1>Anlagen</h1>
+        <ul class="short-items">
+          <li>Lebenslauf</li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>
