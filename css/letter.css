@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&family=Source+Serif+Pro:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&family=Source+Serif+Pro:wght@300;400&display=swap');
 
 :root {
-    font-family: 'Source Serif Pro', serif;
+    --font-family-serif: 'Source Serif Pro', serif;
+    --font-family-sans-serif: 'Source Sans Pro', sans-serif;
+    font-family: var(--font-family-serif);
     font-weight: 300;
 
     --font-size-ratio: 1.2;
@@ -19,21 +21,21 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: var(--font-family-sans-serif);
     font-weight: 300;
 }
 
 th {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: var(--font-family-sans-serif);
 }
-th { font-weight: 400; }
+th { font-weight: 600; }
 
 .url {
     font-family: inherit;
 }
 
 
-@media print {
+/* @media print { */
     :root {
         --medium: 11pt;
 
@@ -45,8 +47,10 @@ th { font-weight: 400; }
         --bottom-margin: 2cm;
         --left-margin: 2.5cm;
         --sender-address-bottom: 4.3cm;
-        /* --recipient-address-top: 5.5cm; */
-        --recipient-address-top: 5cm;
+        /* Two different start heights for the recipient's address
+         *  -> currently, only the 4.5cm one works correctly! */
+        /* --recipient-address-top: 2.7cm; */
+        --recipient-address-top: 4.5cm;
         /* --recipient-address-bottom: 8cm; */
         --recipient-address-bottom: 9cm;
         --header-bottom: 10cm;
@@ -98,27 +102,17 @@ th { font-weight: 400; }
         grid-row-gap: calc(var(--recipient-address-top) - var(--sender-address-bottom));
     }
 
-    header>address#sender {
+    header>.addresses:not(.sender-in-window) {
+        display: contents;
+    }
+    header>.addresses:not(.sender-in-window)>address#sender {
         grid-area: sender;
         font-size: var(--small);
     }
-    header>address#recipient {
+    header>.addresses:not(.sender-in-window)>address#recipient {
         grid-area: recipient;
         margin-top: auto;
         margin-bottom: auto;
-    }
-    header>#location-and-date {
-        margin: 0;
-        padding: 0;
-        grid-area: loc-and-date;
-        align-self: flex-end;
-        text-align: right;
-    }
-
-    a, a:hover, a:focus, a:active, a:visited {
-        text-decoration: none;
-        color: inherit;
-        outline: none;
     }
 
     address {
@@ -138,6 +132,52 @@ th { font-weight: 400; }
     address td:not(:last-child),
     address th:not(:last-child) {
         padding-right: var(--small-sep);
+    }
+
+    header>.addresses.sender-in-window {
+        grid-area: recipient;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    header>.addresses.sender-in-window>address#sender {
+        font-family: var(--font-family-sans-serif);
+        font-size: 8pt;
+        margin-bottom: var(--small-sep);
+    }
+
+    header>.addresses.sender-in-window>address#sender>table {
+    display: block;
+    }
+
+    header>.addresses.sender-in-window>address#sender>table>tbody {
+        display: contents;
+    }
+
+    header>.addresses.sender-in-window>address#sender>table>tbody>tr {
+        display: inline-block;
+    }
+
+    header>.addresses.sender-in-window>address#sender>table>tbody>tr:not(:first-child)::before {
+        display: inline;
+        content: ' | ';
+    }
+
+    header>.addresses.sender-in-window>address#sender>table>tbody>tr>td {
+        display: inline;
+    }
+
+    header>#location-and-date {
+        margin: 0;
+        padding: 0;
+        grid-area: loc-and-date;
+        align-self: flex-end;
+        text-align: right;
+    }
+
+    a, a:hover, a:focus, a:active, a:visited {
+        text-decoration: none;
+        color: inherit;
+        outline: none;
     }
 
     p, ul, ol {
@@ -174,7 +214,7 @@ th { font-weight: 400; }
 
     #subject {
         font-family: 'Source Sans Pro', sans-serif;
-        font-weight: 400;
+        font-weight: 600;
         margin-bottom: var(--big-sep);
     }
 
@@ -182,12 +222,15 @@ th { font-weight: 400; }
         margin-bottom: var(--med-sep);
     }
 
-    #ending {
+    #ending, :not(#ending)+#valediction {
         margin-top: var(--med-sep);
     }
 
-    #valediction {
+    #ending+#valediction {
         margin-top: var(--big-sep);
+    }
+
+    #valediction {
         padding-bottom: var(--signature-whitespace);
     }
 
@@ -195,11 +238,11 @@ th { font-weight: 400; }
         display: inline;
         font: inherit;
         font-family: 'Source Sans Pro', sans-serif;
-        font-weight: 400;
+        font-weight: 600;
     }
     footer .enclosures h1::after {
         display: inline;
         content: ': ';
         font: inherit;
     }
-}
+/* } */
