@@ -55,6 +55,9 @@ th { font-weight: 600; }
         --recipient-address-bottom: 9cm;
         --header-bottom: 10cm;
         --signature-whitespace: 1.5cm;
+
+        --list-item-indent: 2em;
+
         --folding-mark-size: 1pt;
     }
     /* Activate this rule for debugging. It shows borders around all elements. */
@@ -180,7 +183,7 @@ th { font-weight: 600; }
         outline: none;
     }
 
-    p, ul, ol {
+    p, ul, ol, table {
         padding: 0;
         margin: var(--small-sep) 0;
     }
@@ -188,21 +191,27 @@ th { font-weight: 600; }
     ul {
         list-style-type: none;
     }
+    ul>li {
+        margin-inline-start: var(--list-item-indent);
+    }
     ul>li::before {
-        display: inline-block;
+        display: inline-flex;
         font-family: 'Source Sans Pro', sans-serif;
         font-weight: 300;
         content: '—';  /* em-dash */
-        margin-left: -1em;
-        margin-right: var(--small-sep);
+        margin-left: calc(-1*var(--list-item-indent));
+        width: var(--list-item-indent);
+        box-sizing: border-box;
+        flex-direction: row;
+        justify-content: center;
     }
 
     ul.short-items {
-        display: contents;
+        display: block;
         list-style: none;
     }
     ul.short-items>li {
-        display: inline;
+        display: inline-block;
     }
     ul.short-items>li::before {
         display: none;
@@ -210,6 +219,25 @@ th { font-weight: 600; }
     ul.short-items>li:not(:last-child)::after {
         display: inline;
         content: ", ";
+    }
+
+    table.tabbing {
+        display: table;
+        margin-inline: 0;
+        padding: 0;
+        border-collapse: collapse;
+    }
+    table.tabbing td, table.tabbing th {
+        margin: 0;
+        padding: 0;
+        font: inherit;
+    }
+    table.tabbing td:not(last-child), table.tabbing th:not(last-child) {
+        padding-right: var(--small-sep);
+    }
+
+    .indent {
+        margin-left: var(--big-sep) !important;
     }
 
     #subject {
@@ -235,7 +263,7 @@ th { font-weight: 600; }
     }
 
     footer .enclosures h1 {
-        display: inline;
+        display: block;
         font: inherit;
         font-family: 'Source Sans Pro', sans-serif;
         font-weight: 600;
