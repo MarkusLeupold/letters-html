@@ -46,6 +46,7 @@ th { font-weight: 600; }
         --right-margin: 2.5cm;
         --bottom-margin: 2cm;
         --left-margin: 2.5cm;
+        --window-textwidth: 7.5cm;
         --sender-address-bottom: 4.3cm;
         /* Two different start heights for the recipient's address
          *  -> currently, only the 4.5cm one works correctly! */
@@ -97,11 +98,12 @@ th { font-weight: 600; }
 
     header {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: var(--window-textwidth) 1fr;
         grid-template-rows: calc(var(--sender-address-bottom) - var(--top-margin))
                             calc(var(--header-bottom) - var(--recipient-address-top));
-        grid-template-areas: 'sender    .'
-                             'recipient loc-and-date';
+        grid-template-areas:
+            'sender    .'
+            'recipient loc-and-date';
         grid-row-gap: calc(var(--recipient-address-top) - var(--sender-address-bottom));
     }
 
@@ -131,6 +133,14 @@ th { font-weight: 600; }
         margin: 0;
         padding: 0;
         font: inherit;
+    }
+    address#recipient td,
+    address#recipient th,
+    header>.addresses:not(.sender-in-window) address#sender td,
+    header>.addresses:not(.sender-in-window) address#sender th {
+        /* Hanging indent for lines that are too long */
+        padding-inline-start: var(--med-sep);
+        text-indent: calc(-1*var(--med-sep));
     }
     address td:not(:last-child),
     address th:not(:last-child) {
